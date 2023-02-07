@@ -1,5 +1,5 @@
-# AntySuicidalZombies_NWPluginAPI
-Plugin AntySuicidalZombies for NW PluginAPI. Prevent Zombies from suiciding on Tesla or by jumping into void.
+# AntiSuicidalZombies_NWPluginAPI
+Plugin AntiSuicidalZombies for NW PluginAPI. Prevent Zombies from suiciding on Tesla or by jumping into void.
 - Zombies can be blinded after walking into Tesla by setting BlindEffect bigger than 0.
 
 ## Config
