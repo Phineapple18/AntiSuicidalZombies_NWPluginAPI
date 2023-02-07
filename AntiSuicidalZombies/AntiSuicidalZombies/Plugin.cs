@@ -15,7 +15,7 @@ namespace AntiSuicidalZombies
 		public static Plugin Singleton { get; private set; }
 
 		[PluginPriority(LoadPriority.Medium)]
-		[PluginEntryPoint("AntiSuicidalZombies", "1.0.2", null, "AidualK")]
+		[PluginEntryPoint("AntiSuicidalZombies", "1.0.1", null, "AidualK")]
 		public void OnLoad()
 		{
 			if (!PluginConfig.IsEnabled)
