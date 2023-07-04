@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ namespace AntiSuicidalZombies
 		public static Plugin Singleton { get; private set; }
 
 		[PluginPriority(LoadPriority.Medium)]
-		[PluginEntryPoint("AntiSuicidalZombies", "1.0.1", null, "AidualK")]
+		[PluginEntryPoint("AntiSuicidalZombies", "1.0.2", null, "CarverGoofballJunior")]
 		public void OnLoad()
 		{
 			if (!PluginConfig.IsEnabled)
@@ -25,7 +25,7 @@ namespace AntiSuicidalZombies
 			Singleton = this;
 			EventManager.RegisterEvents<EventHandlers>(this);
 			var handler = PluginHandler.Get(this);
-			Log.Info($"Loaded plugin {handler.PluginName} by {handler.PluginAuthor}.");
+			Log.Info($"Loaded plugin {handler.PluginName} by {handler.PluginAuthor}.", handler.PluginName);
 		}
 
 		[PluginUnload]
