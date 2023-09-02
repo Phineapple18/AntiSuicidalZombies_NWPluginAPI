@@ -24,10 +24,9 @@ namespace AntiSuicidalZombies
 		[PluginEvent(ServerEventType.PlayerDamage)]
 		public bool OnPlayerDamage(PlayerDamageEvent ev)
 		{
-			if (ev.Target.Role == RoleTypeId.Scp0492 && ev.Player == null)
+			if (ev.Target.Role == RoleTypeId.Scp0492 && ev.DamageHandler is UniversalDamageHandler udh)
 			{
-				UniversalDamageHandler uDH = (UniversalDamageHandler)ev.DamageHandler;
-				if (uDH.TranslationId == 13)
+				if (udh.TranslationId == DeathTranslations.Tesla.Id)
 				{
 					if (config.BlindEffect > 0)
 					{
@@ -35,7 +34,7 @@ namespace AntiSuicidalZombies
 					}
 					return false;
 				}
-				if (uDH.TranslationId == 20 && (ev.Target.Room.Name == RoomName.Hcz106 || ev.Target.Room.Name == RoomName.HczArmory || ev.Target.Room.Name == RoomName.HczTestroom))
+				if (udh.TranslationId == DeathTranslations.Crushed.Id && (ev.Target.Room.Name == RoomName.Hcz106 || ev.Target.Room.Name == RoomName.HczArmory || ev.Target.Room.Name == RoomName.HczTestroom))
 				{
 					var roomdoors = DoorVariant.DoorsByRoom[ev.Target.Room].Where(d => d.RequiredPermissions.RequiredPermissions == KeycardPermissions.None).ToList();
 					var doorpos = roomdoors.ElementAt(RandInt.Next(roomdoors.Count)).transform.position;
