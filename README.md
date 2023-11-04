@@ -8,4 +8,4 @@ Plugin AntiSuicidalZombies for NW PluginAPI. Prevent Zombies from suiciding on T
 |---|---|---|---|
 |is_enabled|bool|true|Is plugin enabled?|
 |debug|bool|false|Should Debug be enabled?|
-|tesla_effect|Dictionary<string, float>|Blinded: 5, Deafened: 5|Effect(s) and duration applied to zombies after walking into tesla. Value must be higher than 0.|
+|tesla_effect|Dictionary<string, float>|Blinded: 5 Deafened: 5|Effect(s) and duration applied to zombies after walking into tesla. Value must be higher than 0.|
