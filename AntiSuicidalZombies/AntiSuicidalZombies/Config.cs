@@ -16,7 +16,11 @@ namespace AntiSuicidalZombies
         [Description("Should Debug be enabled?")]
         public bool Debug { get; set; } = false;
 
-        [Description("Should zombies be blinded after walking into tesla and for how long? Set to 0 or below to disable.")]
-        public float BlindEffect { get; set; } = 5f;
+        [Description("Effect(s) and duration applied to zombies after walking into tesla. Value must be higher than 0.")]
+        public Dictionary<string, float> TeslaEffect { get; set; } = new Dictionary<string, float>
+        {
+            { "Blinded", 5f},
+            { "Deafened", 5f }
+        };
     }
 }
