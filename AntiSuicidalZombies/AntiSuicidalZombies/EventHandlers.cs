@@ -24,27 +24,30 @@ namespace AntiSuicidalZombies
 		[PluginEvent(ServerEventType.PlayerDamage)]
 		public bool OnPlayerDamage(PlayerDamageEvent ev)
 		{
-			if (ev.Player.Role == RoleTypeId.Scp0492 && ev.DamageHandler is UniversalDamageHandler udh)
+			if (ev.Target.Role == RoleTypeId.Scp0492 && ev.DamageHandler is UniversalDamageHandler udh)
 			{
-				if (udh.TranslationId == DeathTranslations.Tesla.Id)
+				if (udh.TranslationId == DeathTranslations.Tesla.Id && !config.TeslaEffect.IsEmpty())
 				{
-					if (config.BlindEffect > 0)
-					{
-						ev.Player.EffectsManager.EnableEffect<Blinded>(config.BlindEffect, true);
-					}
+					foreach (var effect in config.TeslaEffect)
+                    			{
+						if (ev.Target.ReferenceHub.playerEffectsController.TryGetEffect(effect.Key, out StatusEffectBase seb) && effect.Value > 0)
+                        			{
+							seb.ServerSetState(1, effect.Value);
+                        			}
+                    			}
 					return false;
 				}
-				if (udh.TranslationId == DeathTranslations.Crushed.Id && (ev.Player.Room.Name == RoomName.Hcz106 || ev.Player.Room.Name == RoomName.HczArmory || ev.Player.Room.Name == RoomName.HczTestroom))
+				if (udh.TranslationId == DeathTranslations.Crushed.Id && (ev.Target.Room.Name == RoomName.Hcz106 || ev.Target.Room.Name == RoomName.HczArmory || ev.Target.Room.Name == RoomName.HczTestroom))
 				{
-					var roomdoors = DoorVariant.DoorsByRoom[ev.Player.Room].Where(d => d.RequiredPermissions.RequiredPermissions == KeycardPermissions.None).ToList();
+					var roomdoors = DoorVariant.DoorsByRoom[ev.Target.Room].Where(d => d.RequiredPermissions.RequiredPermissions == KeycardPermissions.None).ToList();
 					var doorpos = roomdoors.ElementAt(RandInt.Next(roomdoors.Count)).transform.position;
 					doorpos += Vector3.forward * 0.2f;
-					if (!RoomIdUtils.IsWithinRoomBoundaries(ev.Player.Room, doorpos))
+					if (!RoomIdUtils.IsWithinRoomBoundaries(ev.Target.Room, doorpos))
                     			{
 						doorpos += Vector3.back * 0.2f;
 					}
 					doorpos += Vector3.up;
-					ev.Player.Position = doorpos;
+					ev.Target.Position = doorpos;
 					return false;
 				}
 			}
