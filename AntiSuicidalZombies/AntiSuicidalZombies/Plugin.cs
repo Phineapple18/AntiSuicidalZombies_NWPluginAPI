@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -15,7 +16,7 @@ namespace AntiSuicidalZombies
 		public static Plugin Singleton { get; private set; }
 
 		[PluginPriority(LoadPriority.Medium)]
-		[PluginEntryPoint("AntiSuicidalZombies", "1.0.5", null, "CarverGoofballJunior")]
+		[PluginEntryPoint("AntiSuicidalZombies", "1.0.6", null, "phineapple_18")]
 		public void OnLoad()
 		{
 			if (!PluginConfig.IsEnabled)
