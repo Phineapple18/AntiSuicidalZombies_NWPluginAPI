@@ -12,10 +12,8 @@ using PlayerStatsSystem;
 using UnityEngine;
 
 using PluginAPI.Core.Attributes;
-using PluginAPI.Core;
 using PluginAPI.Enums;
 using PluginAPI.Events;
-using PluginAPI.Core.Zones;
 
 namespace AntiSuicidalZombies
 {
@@ -29,25 +27,24 @@ namespace AntiSuicidalZombies
 				if (udh.TranslationId == DeathTranslations.Tesla.Id && !config.TeslaEffect.IsEmpty())
 				{
 					foreach (var effect in config.TeslaEffect)
-                    			{
-						if (ev.Target.ReferenceHub.playerEffectsController.TryGetEffect(effect.Key, out StatusEffectBase seb) && effect.Value > 0)
-                        			{
-							seb.ServerSetState(1, effect.Value);
-                        			}
-                    			}
+				    	{
+						if (ev.Target.ReferenceHub.playerEffectsController.TryGetEffect(effect.Key, out StatusEffectBase effectBase) && effect.Value > 0)
+			                        {
+			                            effectBase.ServerSetState(1, effect.Value);
+			                        }
+				    	}
 					return false;
 				}
-				if (udh.TranslationId == DeathTranslations.Crushed.Id && (ev.Target.Room.Name == RoomName.Hcz106 || ev.Target.Room.Name == RoomName.HczArmory || ev.Target.Room.Name == RoomName.HczTestroom))
+				if (udh.TranslationId == DeathTranslations.Crushed.Id && (ev.Target.Room.Name is RoomName.Hcz106 or RoomName.HczArmory or RoomName.HczTestroom))
 				{
-					var roomdoors = DoorVariant.DoorsByRoom[ev.Target.Room].Where(d => d.RequiredPermissions.RequiredPermissions == KeycardPermissions.None).ToList();
-					var doorpos = roomdoors.ElementAt(RandInt.Next(roomdoors.Count)).transform.position;
-					doorpos += Vector3.forward * 0.2f;
-					if (!RoomIdUtils.IsWithinRoomBoundaries(ev.Target.Room, doorpos))
-                    			{
-						doorpos += Vector3.back * 0.2f;
+                   			var doors = DoorVariant.DoorsByRoom[ev.Target.Room].Where(d => d.RequiredPermissions.RequiredPermissions == KeycardPermissions.None).ToList();
+					var door = doors.ElementAt(RandInt.Next(doors.Count)).transform;
+					var endpos = door.position + door.transform.forward.normalized + Vector3.up;
+					if (!RoomIdUtils.IsWithinRoomBoundaries(ev.Target.Room, endpos))
+				    	{
+						endpos -= 2*door.transform.forward.normalized;
 					}
-					doorpos += Vector3.up;
-					ev.Target.Position = doorpos;
+					ev.Target.Position = endpos;
 					return false;
 				}
 			}
