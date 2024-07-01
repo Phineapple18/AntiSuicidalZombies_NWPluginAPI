@@ -10,7 +10,6 @@ namespace AntiSuicidalZombies
 {
     public class Config
     {
-
         [Description("Should plugin be enabled?")]
         public bool IsEnabled { get; set; } = true;
 
