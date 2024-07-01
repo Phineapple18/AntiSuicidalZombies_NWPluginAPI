@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,29 +13,25 @@ namespace AntiSuicidalZombies
 {
     public class Plugin
     {
-		public static Plugin Singleton { get; private set; }
-
 		[PluginPriority(LoadPriority.Medium)]
-		[PluginEntryPoint("AntiSuicidalZombies", "1.0.6", null, "phineapple_18")]
+		[PluginEntryPoint("AntiSuicidalZombies", "1.0.7", null, "Phineapple18")]
 		public void OnLoad()
 		{
-			if (!PluginConfig.IsEnabled)
+			if (!pluginConfig.IsEnabled)
 			{
-				return;
+                Log.Warning("Plugin AntiSuicidalZombies is disabled.", "AntiSuicidalZombies");
+                return;
 			}
 			Singleton = this;
-			EventManager.RegisterEvents<EventHandlers>(this);
-			var handler = PluginHandler.Get(this);
-			Log.Info($"Loaded plugin {handler.PluginName} by {handler.PluginAuthor}.", handler.PluginName);
+            pluginHandler = PluginHandler.Get(this);
+            EventManager.RegisterEvents<EventHandlers>(this);
+            Log.Info($"Loaded plugin {pluginHandler.PluginName} by {pluginHandler.PluginAuthor}.", pluginHandler.PluginName);
 		}
 
-		[PluginUnload]
-		public void OnUnload()
-		{
-			EventManager.UnregisterEvents<EventHandlers>(this);
-			Singleton = null;
-		}
+        public PluginHandler pluginHandler;
 
-		[PluginConfig] public Config PluginConfig;
-	}
+        [PluginConfig] public Config pluginConfig;
+
+        public static Plugin Singleton { get; private set; }
+    }
 }

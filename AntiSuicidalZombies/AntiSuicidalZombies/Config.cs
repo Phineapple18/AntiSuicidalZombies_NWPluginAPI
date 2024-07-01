@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.ComponentModel;
 
 namespace AntiSuicidalZombies
 {
     public class Config
     {
+
         [Description("Is plugin enabled?")]
         public bool IsEnabled { get; set; } = true;
 
