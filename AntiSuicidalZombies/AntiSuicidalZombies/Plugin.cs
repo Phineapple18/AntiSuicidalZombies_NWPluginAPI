@@ -14,7 +14,7 @@ namespace AntiSuicidalZombies
     public class Plugin
     {
 		[PluginPriority(LoadPriority.Medium)]
-		[PluginEntryPoint("AntiSuicidalZombies", "1.0.7", null, "Phineapple18")]
+		[PluginEntryPoint("AntiSuicidalZombies", "2.0.0", null, "Phineapple18")]
 		public void OnLoad()
 		{
 			if (!pluginConfig.IsEnabled)
